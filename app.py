@@ -50,8 +50,8 @@ user_input = st.text_area("Ask a question:")
 
 ## Generate response
 if st.button("Generate Response"):
-    if user_input:
+    if not api_key or not user_input:
+        st.error("NO API KEY OR NO INPUT")
+    else:
         response = generate_response(user_input, api_key, model, temperature, max_tokens)
         st.write("Answer:", response)
-    else:
-        st.error("NO INPUT")
