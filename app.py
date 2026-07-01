@@ -25,10 +25,35 @@ prompt = ChatPromptTemplate.from_messages([
 ## Temperature is parameter of llm model, value between 0 to 1, where the higher value means the model will be more creative
 def generate_response(question, api_key, llm, temperature, max_tokens):
     openai.api_key = api_key
-    llm = ChatOpenAI(model=llm)
+    llm = ChatOpenAI(model=llm, temperature=temperature, max_tokens=max_tokens)
 
     output_parser = StrOutputParser()
     chain = prompt | llm | output_parser
 
     answer = chain.invoke({"question": question})
     return answer
+
+
+## Title of the app
+st.title("Enhanced Q&A Chatbot with OpenAI")
+
+## Sidebar settings
+st.sidebar.title("Settings")
+api_key = st.sidebar._text_input("Enter your OpenAI API key:", type="password")
+
+model = st.sidebar.selectbox("Choose Model", ["gpt-4-turbo", "gpt-4", "gpt-4o", "gpt-4o-mini"])
+
+temperature = st.sidebar.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
+
+max_tokens = st.sidebar.slider("Max Tokens", min_value=100, max_value=2048, value=500, step=50)
+
+## Chat interface
+user_input = st.text_area("Ask a question:")
+
+## Generate response
+if st.button("Generate Response"):
+    if not api_key:
+        st.error("Please enter your OpenAI API key")
+    else:
+        response = generate_response(user_input, api_key, model, temperature, max_tokens)
+        st.write("Answer:", response)
