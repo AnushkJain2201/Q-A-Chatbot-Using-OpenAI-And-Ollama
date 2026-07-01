@@ -158,12 +158,6 @@ This project is integrated with **LangSmith**, allowing you to:
 
 ---
 
-## 📸 Demo
-
-*(Add screenshots or a GIF here once available.)*
-
----
-
 ## 📚 Concepts Used
 
 - LangChain Expression Language (LCEL)
@@ -182,8 +176,3 @@ Contributions, suggestions, and improvements are welcome.
 
 Feel free to fork the repository and submit a pull request.
 
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
